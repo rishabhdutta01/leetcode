@@ -8,21 +8,26 @@ class Solution {
         }
 
         int l = nums.length;
-        boolean[] dp = new boolean[l];
-        Arrays.fill(dp,false);
-        dp[0] = true;
+        int j = nums[0];
         int i = 0;
-        while(i<l && dp[i] == true) {
-            if(nums[i] >= l-i-1) {
-                return true;
+
+        if(j==0){
+            return false;
+        }
+        j--;
+        i++;
+        while(j>=0 && i<l) {
+            if(nums[i] > j) {
+                j = nums[i];
             }
-            int j=nums[i];
-            while(j>0){
-                dp[j+i] = true;
-                j--;
-            }
+            j--;
             i++;
         }
-        return dp[l-1];    
+        if(j<0){
+            if(i==l)
+                return true;
+            return false;
+        }  
+        return true;
     }
 }
