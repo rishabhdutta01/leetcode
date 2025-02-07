@@ -11,7 +11,7 @@ class Solution {
         for(int i=0;i<grid.length;i++) {
             for(int j=0;j<grid[0].length;j++) {
                 if(grid[i][j] == '1' && visited[i][j] == false) {
-                    go(grid, visited, i, j, "right");
+                    go(grid, visited, i, j, "");
                     res+=1;
                 }
             }
@@ -25,23 +25,25 @@ class Solution {
         }
         
         visited[i][j] = true;
-        // go(grid, visited, i,j-1, "left");
-        // go(grid, visited, i-1,j+1, "right");
+        go(grid, visited, i,j-1, "");
+        go(grid, visited, i,j+1, "");
+        go(grid, visited, i+1,j, "");
+        go(grid, visited, i-1,j, "");
 
-        if(!last.equals("right")) {
-            go(grid, visited, i,j-1, "left");
-        }
+        // if(!last.equals("right")) {
+        //     go(grid, visited, i,j-1, "left");
+        // }
 
-        if(!last.equals("left")) {
-            go(grid, visited, i,j+1, "right");
-        }
+        // if(!last.equals("left")) {
+        //     go(grid, visited, i,j+1, "right");
+        // }
 
-        if(!last.equals("up")) {
-            go(grid, visited, i+1,j, "down");
-        }
+        // if(!last.equals("up")) {
+        //     go(grid, visited, i+1,j, "down");
+        // }
 
-        if(!last.equals("down")) {
-            go(grid, visited, i-1,j, "up");
-        }
+        // if(!last.equals("down")) {
+        //     go(grid, visited, i-1,j, "up");
+        // }
     }
 }
