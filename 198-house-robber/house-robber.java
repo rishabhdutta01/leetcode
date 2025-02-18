@@ -18,9 +18,9 @@ class Solution {
 
         for(int i = 2; i<nums.length; i++) {
             for(int j = 0; j<i-1;j++) {
-                dp[i] = Math.max(dp[i], nums[i] + dp[j]);
-                res = Math.max(res, dp[i]);
+                dp[i] = Math.max(dp[i], nums[i] + dp[j]);    
             }
+            res = Math.max(res, dp[i]);
         }
 
         return res;        
