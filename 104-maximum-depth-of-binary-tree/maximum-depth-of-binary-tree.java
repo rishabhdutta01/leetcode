@@ -19,20 +19,16 @@ class Solution {
         if(root == null) {
             return 0;
         }
-        int h = 0;
-        int[] res = new int[]{-1};
-        TreeNode curr = root;
-        traverse(curr, h, res);
-        return res[0];
+        return traverse(root, 0);
     }
 
-    void traverse(TreeNode curr, int h, int[] res) {
-        if(curr == null){
-            res[0] = Math.max(res[0], h);
-            return;
+    int traverse(TreeNode curr, int h) {
+        if (curr == null) {
+            return h;
         }
-        traverse(curr.left, h+1, res);
-        traverse(curr.right, h+1, res);
+        int leftDepth = traverse(curr.left, h + 1);
+        int rightDepth = traverse(curr.right, h + 1);
+        return Math.max(leftDepth, rightDepth);
     }
 
 }
