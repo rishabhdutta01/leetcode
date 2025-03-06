@@ -12,27 +12,27 @@ class Solution {
         if(p.val == root.val || q.val == root.val) {
             return root;
         }
-
-        boolean pRight = find(root.right, p);
-        boolean qRight = find(root.right, q);
-
-        if((pRight && !qRight) || (!pRight && qRight)) {
-            return root;
-        }
-        if(!pRight && !qRight) {
-            return lowestCommonAncestor(root.left, p, q); 
-        } else {
-            return lowestCommonAncestor(root.right, p, q); 
-        }
+        TreeNode curr = root;
+        return build(curr, p, q);
     }
 
-    boolean find(TreeNode curr, TreeNode x){
-        if(curr == null) {
-            return false;
+    TreeNode build(TreeNode curr, TreeNode x , TreeNode y){
+        if(curr == null || curr == x || curr == y) {
+            return curr;
         }
-        if(curr.val == x.val) {
-            return true;
+        
+        TreeNode lcurr = build(curr.left, x, y);
+        TreeNode rcurr = build(curr.right, x, y);
+
+        if(lcurr == null && rcurr == null){
+            return null;
+        }else if((lcurr == x && rcurr == y) || (lcurr == y && rcurr == x)) {
+            return curr;
+        } else {
+            if(lcurr == null) {
+                return rcurr;
+            }
+            return lcurr;
         }
-        return find(curr.left, x) || find(curr.right, x);
     }
 }
