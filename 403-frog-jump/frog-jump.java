@@ -1,35 +1,21 @@
 class Solution {
     public boolean canCross(int[] stones) {
-        int n = stones.length;
-        boolean[] dp = new boolean[n];
-        
-        dp[0] = true;
-        if(stones[1] != 1){
-            return false;
+        Map<Integer, Set<Integer>> dp = new HashMap<>();
+        for (int stone : stones) {
+            dp.put(stone, new HashSet<>());
         }
-        dp[1] = true;
-        
-        List<Set<Integer>> jumps = new ArrayList<>(n);
-        jumps.add(new HashSet<>());
-        jumps.add(new HashSet<>());
-        jumps.get(1).add(1);
+        dp.get(0).add(0);
 
-        for(int i=2;i<n;i++){
-            jumps.add(i, new HashSet<Integer>());
-            for(int j=1;j<i;j++){
-                if(dp[j]){
-                    for(int k: jumps.get(j)){
-                        if(stones[i] >= stones[j]+k-1 && stones[i] <= stones[j]+k+1){
-                            jumps.get(i).add(stones[i] - stones[j]);
-                        }
+        for (int stone : stones) {
+            for (int jump : dp.get(stone)) {
+                for (int jumpDistance : new int[] {jump - 1, jump, jump + 1}) {
+                    if (jumpDistance > 0 && dp.containsKey(stone + jumpDistance)) {
+                        dp.get(stone + jumpDistance).add(jumpDistance);
                     }
-                }   
-            }
-            if(jumps.get(i).size() > 0){
-                dp[i] = true;
+                }
             }
         }
 
-        return dp[n-1];
+        return !dp.get(stones[stones.length - 1]).isEmpty();        
     }
 }
