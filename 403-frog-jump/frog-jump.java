@@ -16,15 +16,17 @@ class Solution {
 
         for(int i=2;i<n;i++){
             jumps.add(i, new HashSet<Integer>());
-            for(int j=i-1;j>0;j--){
+            for(int j=1;j<i;j++){
                 if(dp[j]){
                     for(int k: jumps.get(j)){
                         if(stones[i] >= stones[j]+k-1 && stones[i] <= stones[j]+k+1){
-                            dp[i] = true;
                             jumps.get(i).add(stones[i] - stones[j]);
                         }
                     }
                 }   
+            }
+            if(jumps.get(i).size() > 0){
+                dp[i] = true;
             }
         }
 
