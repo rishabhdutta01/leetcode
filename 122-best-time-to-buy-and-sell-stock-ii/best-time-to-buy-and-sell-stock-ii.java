@@ -9,13 +9,28 @@ class Solution {
         
         int n = prices.length;
         int[] dp = new int[n];
-
-        for(int i = 1; i<n; i++){
-            for(int j=0; j<i; j++){
-                dp[i] = Math.max(dp[i], Math.max(0,prices[i] - prices[j]) + dp[j]);
-            }            
+        int res = 0;
+        int prev = 0;
+        int l=0;
+        int r=1;
+        while(r<n){
+            if(prices[l] >= prices[r]){
+                l = r;
+                r++;
+            } else{
+                prev = Math.max(prev, prices[r] - prices[l]);
+                r++;
+                if(r<n){
+                    if(prices[r-1] > prices[r]){
+                        res+=prev;
+                        prev=0;
+                        l=r;
+                        r++;
+                    }
+                }
+            }
         }
 
-        return dp[n-1];
+        return res+prev;
     }
 }
