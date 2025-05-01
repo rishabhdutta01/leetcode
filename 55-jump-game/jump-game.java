@@ -1,33 +1,19 @@
 class Solution {
     public boolean canJump(int[] nums) {
-        if (nums == null || nums.length == 0) {
+        if(nums == null || nums.length == 0) {
             return false;
         }
+
         if(nums.length == 1) {
             return true;
         }
-
-        int l = nums.length;
-        int j = nums[0];
-        int i = 0;
-
-        if(j==0){
-            return false;
-        }
-        j--;
-        i++;
-        while(j>=0 && i<l) {
-            if(nums[i] > j) {
-                j = nums[i];
+        
+        int lasti = nums.length - 1;
+        for(int i=lasti-1;i>=0;i--) {
+            if(i+nums[i] >= lasti) {
+                lasti=i;
             }
-            j--;
-            i++;
         }
-        if(j<0){
-            if(i==l)
-                return true;
-            return false;
-        }  
-        return true;
+        return lasti==0;
     }
 }
