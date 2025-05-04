@@ -119,13 +119,11 @@ class Solution {
         Queue<int[]> q = new LinkedList<>();
         q.offer(new int[]{i, j});
         
-        // Use visited array to prevent processing same cell multiple times
-        boolean[][] visited = new boolean[board.length][board[0].length];
-        visited[i][j] = true;
-        
         while (!q.isEmpty()) {
             int[] curr = q.poll();
             int r = curr[0], c = curr[1];
+            
+            if (board[r][c] != 'E') continue;
             
             // Count adjacent mines
             int mines = 0;
@@ -138,7 +136,7 @@ class Solution {
                 if (newR >= 0 && newR < board.length && newC >= 0 && newC < board[0].length) {
                     if (board[newR][newC] == 'M') {
                         mines++;
-                    } else if (!visited[newR][newC] && board[newR][newC] == 'E') {
+                    } else if (board[newR][newC] == 'E') {
                         neighbors.add(new int[]{newR, newC});
                     }
                 }
@@ -151,7 +149,6 @@ class Solution {
                 board[r][c] = 'B';
                 // Add neighbors to queue only if current cell is 'B'
                 for (int[] neighbor : neighbors) {
-                    visited[neighbor[0]][neighbor[1]] = true;
                     q.offer(neighbor);
                 }
             }
