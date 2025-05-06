@@ -18,8 +18,6 @@ class Solution {
 
         int cnt=0;
         for(int i=0;i<n; i++){
-            System.out.println("parent" + i+":" + p[i]);
-            System.out.println("size" + i+":" + s[i]);
             if(p[i] == i){
                 cnt++;
             }
