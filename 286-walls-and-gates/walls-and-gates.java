@@ -3,7 +3,6 @@ class Solution {
     public void wallsAndGates(int[][] rooms) {
         
         Queue<Pair<Integer,Integer>> q = new LinkedList<>();
-        Set<Pair<Integer,Integer>> s = new HashSet<>();
         boolean[][] visited = new boolean[rooms.length][rooms[0].length];
 
         for(int i=0;i<rooms.length;i++){
@@ -33,16 +32,11 @@ class Solution {
                     int ncol = col+moves[j][1];
                     if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]!=-1 && !visited[nrow][ncol]){
                         rooms[nrow][ncol] = rooms[row][col]+1;
-                        s.add(new Pair(nrow,ncol));
+                        q.offer(new Pair(nrow,ncol));
                         visited[nrow][ncol] = true;
                     }
                 }   
             }
-
-            for(Pair<Integer, Integer> p : s) {
-                q.offer(p);
-            }
-            s.clear();
         }
     }
 }
