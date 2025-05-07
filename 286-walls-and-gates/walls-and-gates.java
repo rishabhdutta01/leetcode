@@ -30,10 +30,11 @@ class Solution {
                 for(int j=0;j<moves.length;j++){
                     int nrow = row+moves[j][0];
                     int ncol = col+moves[j][1];
-                    if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]!=-1 && !visited[nrow][ncol]){
+                    // if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]!=-1 && !visited[nrow][ncol]){
+                    if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]==inf){
                         rooms[nrow][ncol] = rooms[row][col]+1;
                         q.offer(new Pair(nrow,ncol));
-                        visited[nrow][ncol] = true;
+                        // visited[nrow][ncol] = true;
                     }
                 }   
             }
