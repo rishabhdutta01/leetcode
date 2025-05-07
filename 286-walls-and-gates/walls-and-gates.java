@@ -2,14 +2,12 @@ class Solution {
     int inf = 2147483647;
     public void wallsAndGates(int[][] rooms) {
         
-        Queue<Pair<Integer,Integer>> q = new LinkedList<>();
-        boolean[][] visited = new boolean[rooms.length][rooms[0].length];
+        Queue<int[]> q = new LinkedList<>();
 
         for(int i=0;i<rooms.length;i++){
             for(int j=0;j<rooms[0].length;j++){
                 if(rooms[i][j] == 0){
-                    q.offer(new Pair(i,j));
-                    visited[i][j] = true;
+                    q.offer(new int[]{i,j});
                 }
             }
         }
@@ -24,17 +22,13 @@ class Solution {
         while(!q.isEmpty()){
             int n = q.size();
             for(int i=0;i<n;i++){
-                Pair<Integer,Integer> p = q.poll();
-                int row = p.getKey();
-                int col = p.getValue();
+                int[] dim = q.poll();
                 for(int j=0;j<moves.length;j++){
-                    int nrow = row+moves[j][0];
-                    int ncol = col+moves[j][1];
-                    // if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]!=-1 && !visited[nrow][ncol]){
+                    int nrow = dim[0]+moves[j][0];
+                    int ncol = dim[1]+moves[j][1];
                     if(nrow>=0 && nrow<rooms.length && ncol>=0 && ncol<rooms[0].length && rooms[nrow][ncol]==inf){
-                        rooms[nrow][ncol] = rooms[row][col]+1;
-                        q.offer(new Pair(nrow,ncol));
-                        // visited[nrow][ncol] = true;
+                        rooms[nrow][ncol] = rooms[dim[0]][dim[1]]+1;
+                        q.offer(new int[]{nrow,ncol});
                     }
                 }   
             }
