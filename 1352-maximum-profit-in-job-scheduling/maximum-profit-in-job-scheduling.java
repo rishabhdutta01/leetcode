@@ -72,7 +72,7 @@ class Solution {
                 return a.end - b.end;
             }
         });
-        int[] dp = new int[profit.length];//包含[0, i]工作能赚的最多的钱
+        int[] dp = new int[profit.length];
         dp[0] = jobs[0].profit;
         for (int i = 1; i < profit.length; i++) {
             int start = jobs[i].start;
