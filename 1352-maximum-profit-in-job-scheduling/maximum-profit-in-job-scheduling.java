@@ -18,10 +18,10 @@ class Solution {
         Arrays.sort(jobs, (a,b) -> a.st - b.st);
 
         Map<String, Integer> memo = new HashMap<>();
-        return fnc(jobs, 0, -1, memo);
+        return fnc(jobs, 0, memo);
     }
 
-    int fnc(Job[] jobs, int idx, int lastidx, Map<String, Integer> memo) {
+    int fnc(Job[] jobs, int idx, Map<String, Integer> memo) {
         if(idx == jobs.length) {
             return 0;
         }
@@ -32,8 +32,8 @@ class Solution {
         }
 
         int nextIdx = findNextIdx(jobs, idx);
-        int pick = jobs[idx].profit + fnc(jobs, nextIdx, idx, memo);
-        int notpick = fnc(jobs, idx+1, lastidx, memo);
+        int pick = jobs[idx].profit + fnc(jobs, nextIdx, memo);
+        int notpick = fnc(jobs, idx+1, memo);
 
         int result = Math.max(pick, notpick);
         memo.put(key, result);
