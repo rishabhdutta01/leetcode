@@ -15,10 +15,9 @@ class Solution {
 
         while(s.peek() != -1){
             int h = heights[s.pop()];
-                int w = n-s.peek()-1;
-                res = Math.max(res,h*w);
+            int w = n-s.peek()-1;
+            res = Math.max(res,h*w);
         }
-
         return res;
     }
 }
