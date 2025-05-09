@@ -95,11 +95,12 @@ class Solution {
             map.put(products[i], i);
         }
 
-        String key = "";
+
+        StringBuilder key = new StringBuilder();
         for (char c : searchWord.toCharArray()) {
-            key += c;
-            String ceiling = map.ceilingKey(key);
-            String floor = map.floorKey(key + "~");
+            key.append(c);
+            String ceiling = map.ceilingKey(key.toString());
+            String floor = map.floorKey(key.toString() + "~");
             if (ceiling == null || floor == null)
                 break;
             res.add(productsList.subList(map.get(ceiling), Math.min(map.get(ceiling) + 3, map.get(floor) + 1)));
