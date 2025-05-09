@@ -4,19 +4,18 @@ class Solution {
         int res = Integer.MIN_VALUE;
         Stack<Integer> s= new Stack<>();
         s.push(-1);
-        int idx = 0;
-        while(idx < n){
-            while(s.peek()!=-1 && heights[idx]<heights[s.peek()]){
+        for(int i=0;i<n;i++) {
+            while(s.peek()!=-1 && heights[i]<heights[s.peek()]){
                 int h = heights[s.pop()];
-                int w = idx-s.peek()-1;
+                int w = i-s.peek()-1;
                 res = Math.max(res,h*w);
             }
-            s.push(idx++);
+            s.push(i);
         }
 
         while(s.peek() != -1){
             int h = heights[s.pop()];
-                int w = idx-s.peek()-1;
+                int w = n-s.peek()-1;
                 res = Math.max(res,h*w);
         }
 
