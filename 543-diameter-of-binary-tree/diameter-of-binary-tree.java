@@ -28,6 +28,6 @@ class Solution {
         int l = fnc(curr.left);
         int r = fnc(curr.right);
         res = Math.max(res, l+r);
-        return 1+Math.max(l,r);
+        return 1 + Math.max(l,r);
     }
 }
