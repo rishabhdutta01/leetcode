@@ -13,6 +13,7 @@ class Solution {
             max = Math.max(max,nums[i]);
         }
 
+        //offset array by min value
         int[] arr = new int[max-min+1];
 
         for(int i=0;i<n;i++){
