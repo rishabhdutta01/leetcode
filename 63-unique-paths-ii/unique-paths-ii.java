@@ -41,11 +41,11 @@ class Solution {
                 if(obstacleGrid[i][j] == 0){
                     continue;
                 }
-                if(obstacleGrid[i-1][j] == 0 || obstacleGrid[i][j-1] == 0){
-                    obstacleGrid[i][j] = Math.max(obstacleGrid[i-1][j], obstacleGrid[i][j-1]);
-                } else {
+                // if(obstacleGrid[i-1][j] == 0 || obstacleGrid[i][j-1] == 0){
+                //     obstacleGrid[i][j] = Math.max(obstacleGrid[i-1][j], obstacleGrid[i][j-1]);
+                // } else {
                     obstacleGrid[i][j] = obstacleGrid[i-1][j] + obstacleGrid[i][j-1];
-                }                
+                // }                
             }
         }
         return obstacleGrid[m-1][n-1];
