@@ -37,7 +37,7 @@ class Solution {
         if(curr > sum){
             return false;
         }
-        if(k==0){
+        if(k==1){
             return true;
         }
         if(curr == sum){
