@@ -38,9 +38,10 @@ class Solution {
 
             if (cnt == 0) {
                 board[r][c] = 'B';
-                for (int[] arr : l) {
-                    q.offer(new int[] { arr[0], arr[1] });
-                }
+                q.addAll(l);
+                // for (int[] arr : l) {
+                //     q.offerAll(new int[] { arr[0], arr[1] });
+                // }
             } else {
                 board[r][c] = (char) (cnt + '0');
             }
