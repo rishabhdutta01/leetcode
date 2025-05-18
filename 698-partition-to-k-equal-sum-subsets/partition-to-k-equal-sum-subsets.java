@@ -41,7 +41,9 @@ class Solution {
             return true;
         }
         if(curr == sum){
-            return backtrack(arr,k-1,sum,0,0,visited,memo);
+            boolean res = backtrack(arr,k-1,sum,0,0,visited,memo);
+            memo.put(new String(visited), res);
+            return res;
         }
         if(i==arr.length){
             return false;
