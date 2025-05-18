@@ -1,5 +1,11 @@
 class Solution {
     public boolean queryString(String s, int n) {
+        // Early exit: If n is too large compared to string length
+        // A string of length m can only contain all binary numbers up to ~2m
+        if (n > 2 * s.length()) {
+            return false;
+        }
+        
         int i = 0;
         while(i<s.length() && s.charAt(i) == '0'){
             i++;
