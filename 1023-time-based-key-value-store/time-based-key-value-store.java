@@ -23,26 +23,40 @@ class TimeMap {
         if (timestamp < keyTimeMap.get(key).get(0).getKey()) {
             return "";
         }
-        
-        // Using binary search on the list of pairs.
-        int left = 0;
-        int right = keyTimeMap.get(key).size();
-        
-        while (left < right) {
-            int mid = (left + right) / 2;
-            if (keyTimeMap.get(key).get(mid).getKey() <= timestamp) {
-                left = mid + 1;
-            } else {
-                right = mid;
-            }
-        }
 
-        // If iterator points to first element it means, no time <= timestamp exists.
-        if (right == 0) {
-            return "";
+        Comparator<Pair<Integer, String>> c = new Comparator<>() {
+            public int compare(Pair<Integer, String> a, Pair<Integer, String> b)
+            {
+                return a.getKey().compareTo(b.getKey());
+            }
+        };
+
+        int idx = Collections.binarySearch(keyTimeMap.get(key), new Pair<>(timestamp,null),c);
+        if(idx>=0){
+            return keyTimeMap.get(key).get(idx).getValue();
         }
+        idx = idx*-1 -2;
+        return keyTimeMap.get(key).get(idx).getValue();
+        
+        // // Using binary search on the list of pairs.
+        // int left = 0;
+        // int right = keyTimeMap.get(key).size();
+        
+        // while (left < right) {
+        //     int mid = (left + right) / 2;
+        //     if (keyTimeMap.get(key).get(mid).getKey() <= timestamp) {
+        //         left = mid + 1;
+        //     } else {
+        //         right = mid;
+        //     }
+        // }
+
+        // // If iterator points to first element it means, no time <= timestamp exists.
+        // if (right == 0) {
+        //     return "";
+        // }
                 
-        return keyTimeMap.get(key).get(right - 1).getValue();
+        // return keyTimeMap.get(key).get(right - 1).getValue();
     }
 }
 // class TimeMap {
