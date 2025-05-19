@@ -24,14 +24,14 @@ class TimeMap {
             return "";
         }
 
-        Comparator<Pair<Integer, String>> c = new Comparator<>() {
-            public int compare(Pair<Integer, String> a, Pair<Integer, String> b)
-            {
-                return a.getKey().compareTo(b.getKey());
-            }
-        };
+        // Comparator<Pair<Integer, String>> c = new Comparator<>() {
+        //     public int compare(Pair<Integer, String> a, Pair<Integer, String> b)
+        //     {
+        //         return a.getKey() - b.getKey();
+        //     }
+        // };
 
-        int idx = Collections.binarySearch(keyTimeMap.get(key), new Pair<>(timestamp,null),c);
+        int idx = Collections.binarySearch(keyTimeMap.get(key), new Pair<>(timestamp,null),(a,b) -> a.getKey() - b.getKey());
         if(idx>=0){
             return keyTimeMap.get(key).get(idx).getValue();
         }
