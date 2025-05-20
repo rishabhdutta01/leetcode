@@ -9,20 +9,12 @@ class Solution {
                 l++;
             } else if(c==')'){
                 if(l>0) l--;
-                else r++;
+                else continue;
             }
             sb.append(c);
         }
 
-        int i=0;
-        while(i<sb.length()){
-            if(sb.charAt(i)==')' && r>0){
-                r--;
-                sb.deleteCharAt(i);
-            } else i++;
-        }
-
-        i = sb.length()-1;
+        int i = sb.length()-1;
         while(i>=0){
             if(sb.charAt(i)=='(' && l>0){
                 l--;
