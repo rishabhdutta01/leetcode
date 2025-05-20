@@ -3,6 +3,8 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         int r=0;
         int l=0;
+
+        //Remove faulty close brackets
         for(int i=0;i<s.length();i++){
             char c = s.charAt(i);
             if(c=='('){
@@ -14,6 +16,7 @@ class Solution {
             sb.append(c);
         }
 
+        //Remove faulty open brackets
         int i = sb.length()-1;
         while(i>=0){
             if(sb.charAt(i)=='(' && l>0){
