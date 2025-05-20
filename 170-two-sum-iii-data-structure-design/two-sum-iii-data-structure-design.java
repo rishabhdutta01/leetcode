@@ -1,30 +1,38 @@
-import java.util.HashMap;
-
 class TwoSum {
-    private HashMap<Integer, Integer> num_counts;
 
-    /** Initialize your data structure here. */
+    HashMap<Integer, Integer> map;
+    int MAX = Integer.MIN_VALUE;
+    int MIN = Integer.MAX_VALUE;
+
     public TwoSum() {
-        this.num_counts = new HashMap<Integer, Integer>();
+        this.map = new HashMap<>();
     }
 
-    /** Add the number to an internal data structure.. */
     public void add(int number) {
-        if (this.num_counts.containsKey(number)) this.num_counts.replace(
-                number,
-                this.num_counts.get(number) + 1
-            );
-        else this.num_counts.put(number, 1);
+        if (number > MAX) {
+            MAX = number;
+        } else if (number < MIN) {
+            MIN = number;
+        }
+
+        this.map.put(number, map.getOrDefault(number, 0) + 1);
     }
 
-    /** Find if there exists any pair of numbers which sum is equal to the value. */
     public boolean find(int value) {
-        for (Map.Entry<Integer, Integer> entry : this.num_counts.entrySet()) {
-            int complement = value - entry.getKey();
-            if (complement != entry.getKey()) {
-                if (this.num_counts.containsKey(complement)) return true;
+        if (value > MAX * 2 || value < MIN * 2) {
+            return false;
+        }
+
+        for (int key : map.keySet()) {
+            int complement = value - key;
+            if (complement == key) {
+                if (map.get(key) > 1) {
+                    return map.get(key) > 1;
+                }
             } else {
-                if (entry.getValue() > 1) return true;
+                if (map.containsKey(complement)) {
+                    return true;
+                }
             }
         }
         return false;
