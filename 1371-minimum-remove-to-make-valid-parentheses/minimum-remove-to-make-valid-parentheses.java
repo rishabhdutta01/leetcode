@@ -1,31 +1,40 @@
 class Solution {
     public String minRemoveToMakeValid(String s) {
-        StringBuilder sb = new StringBuilder();
-        int r=0;
-        int l=0;
+        if(s==null || s.length()==0) return "";
 
-        //Remove faulty close brackets
+        int open=0;
+        int close=0;
+        int opentotal=0;
         for(int i=0;i<s.length();i++){
-            char c = s.charAt(i);
-            if(c=='('){
-                l++;
-            } else if(c==')'){
-                if(l>0) l--;
-                else continue;
+            if(s.charAt(i) == '('){
+                open++;
+                opentotal++;
+            } else if(s.charAt(i) == ')'){
+                if(open==0) close++;
+                else open--;
             }
-            sb.append(c);
         }
 
-        //Remove faulty open brackets
-        int i = sb.length()-1;
-        while(i>=0){
-            if(sb.charAt(i)=='(' && l>0){
-                l--;
-                sb.deleteCharAt(i);
-            } 
-            i--;
+        StringBuilder sb = new StringBuilder();
+        int openseen=0;
+        int closedseen=0;
+        for(int i=0;i<s.length();i++){
+            if(s.charAt(i) == '('){
+                if(opentotal != open) {
+                    openseen++;
+                    sb.append(s.charAt(i));
+                    opentotal--;
+                }
+            } else if(s.charAt(i) == ')'){
+                if(openseen==0) close--;
+                else {
+                    openseen--;
+                    sb.append(s.charAt(i));
+                }
+            }else{
+                sb.append(s.charAt(i));
+            }
         }
-
         return sb.toString();
     }
 }
