@@ -11,7 +11,7 @@ class Solution {
         while(!q.isEmpty()){
             int[] dim = q.poll();
             if(dim[0] == n-1 && dim[1] == n-1){
-                break;
+                return grid[n-1][n-1];
             }
             
             for(int[] dir: dirs){
@@ -24,6 +24,6 @@ class Solution {
                 }
             }
         }
-        return grid[n-1][n-1] == 0 ? -1 : grid[n-1][n-1];
+        return -1;
     }
 }
