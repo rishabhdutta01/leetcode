@@ -28,34 +28,24 @@
  */
 class Solution {
     public int depthSum(List<NestedInteger> nestedList) {
-        if(nestedList == null || nestedList.size() == 0) return 0;
+        Queue<NestedInteger> queue = new LinkedList<>();
+        queue.addAll(nestedList);
 
-        int d=1;
-        Queue<Pair<List<NestedInteger>, Integer>> q = new LinkedList<>();
+        int depth = 1;
+        int total = 0;
 
-        int res=0;
-        for(int i=0;i<nestedList.size();i++){
-            if(nestedList.get(i).isInteger()){
-                res+=nestedList.get(i).getInteger()*d;
-            } else{
-                q.add(new Pair<>(nestedList.get(i).getList(), d+1));
-            }
-            
-        }
-
-        while(!q.isEmpty()){
-            Pair<List<NestedInteger>, Integer> p = q.poll();
-            List<NestedInteger> ni = p.getKey();
-            d = p.getValue();
-
-            for(int i=0;i<ni.size();i++){
-                if(ni.get(i).isInteger()){
-                    res+=ni.get(i).getInteger()*d;
-                } else{
-                    q.add(new Pair<>(ni.get(i).getList(), d+1));
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                NestedInteger nested = queue.poll();
+                if (nested.isInteger()) {
+                    total += nested.getInteger() * depth;
+                } else {
+                    queue.addAll(nested.getList());
                 }
             }
+            depth++;
         }
-        return res;
+        return total;
     }
 }
