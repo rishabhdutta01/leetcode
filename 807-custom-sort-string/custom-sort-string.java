@@ -1,20 +1,26 @@
 class Solution {
     public String customSortString(String order, String s) {
-        int[] arr = new int[26];
-        for(int i=0;i<s.length();i++){
-            arr[s.charAt(i) - 'a']++;
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for(int i=0;i<order.length();i++){
-            sb.append(String.valueOf(order.charAt(i)).repeat(arr[order.charAt(i) - 'a']));
-            arr[order.charAt(i) - 'a'] = 0;
+        // Step 1: Count frequency of each character in s
+        int[] freq = new int[26];
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
         }
 
-        for(int i=0;i<26;i++){
-            if(arr[i] == 0) continue;
-            sb.append(String.valueOf((char)('a' + i)).repeat(arr[i]));
+        // Step 2: Append characters from 'order' in correct order
+        StringBuilder result = new StringBuilder();
+        for (char c : order.toCharArray()) {
+            while (freq[c - 'a']-- > 0) {
+                result.append(c);
+            }
         }
-        return sb.toString();
+
+        // Step 3: Append remaining characters not in 'order'
+        for (char c = 'a'; c <= 'z'; c++) {
+            while (freq[c - 'a']-- > 0) {
+                result.append(c);
+            }
+        }
+
+        return result.toString();
     }
 }
