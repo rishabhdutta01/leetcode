@@ -4,21 +4,31 @@ class Solution {
             return 0;
 
         int n = prices.length;
-        int[][] dp = new int[3][n]; // 3 rows for 0,1,2 transactions
-
+        int[][] dp = new int[3][n]; // dp[transactions][day] = max profit
+        
         // Fill for max 1 and max 2 transactions
-        for (int i = 1; i <= 2; i++) {
-            int maxDiff = -prices[0]; // Initialize with buying first stock
-            for (int j = 1; j < n; j++) {
-                // Either keep previous profit or sell today
-                dp[i][j] = Math.max(dp[i][j - 1], prices[j] + maxDiff);
-
-                // Update maxDiff for next iteration
-                // maxDiff represents best buying opportunity considering previous transaction
-                maxDiff = Math.max(maxDiff, dp[i - 1][j - 1] - prices[j]);
+        for (int transactions = 1; transactions <= 2; transactions++) {
+            // This tracks the best profit if we're currently holding a stock
+            // (i.e., we bought it at some optimal earlier point)
+            int bestProfitIfHolding = -prices[0]; // Buy on day 0
+            
+            for (int day = 1; day < n; day++) {
+                // Option 1: Do nothing today (keep yesterday's profit)
+                // Option 2: Sell today at prices[day], and add the best profit from holding
+                dp[transactions][day] = Math.max(
+                    dp[transactions][day - 1],           // Do nothing
+                    prices[day] + bestProfitIfHolding    // Sell today
+                );
+                
+                // Update: what's the best profit if we buy today?
+                // We can buy today after completing (transactions-1) transactions yesterday
+                bestProfitIfHolding = Math.max(
+                    bestProfitIfHolding,                    // Keep previous best
+                    dp[transactions - 1][day - 1] - prices[day]  // Buy today
+                );
             }
         }
-
-        return dp[2][n - 1]; // Return max profit with at most 2 transactions
+        
+        return dp[2][n - 1]; // Max profit with at most 2 transactions
     }
 }
