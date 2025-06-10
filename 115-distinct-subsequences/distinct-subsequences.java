@@ -5,13 +5,15 @@ class Solution {
     }
 
     int fnc(String s, String t, int si, int ti, Integer[][] dp){
-        if(si == s.length()){
-            if(ti == t.length()) return 1;
-            else return 0;
+        if (ti == t.length()) {
+            return 1;
         }
-
-        if(ti == t.length()) return 1;
-
+        if (si == s.length()) {
+            return 0;
+        }
+        if (t.length() - ti > s.length() - si) {
+            return 0;
+        }
         
         if(dp[si][ti] != null) return dp[si][ti];
 
