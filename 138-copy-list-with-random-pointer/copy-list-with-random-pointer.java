@@ -37,17 +37,14 @@ class Solution {
         Node newHead = curr.next;
         Node newCurr = newHead;
         while (curr != null) {
-            curr.next = newCurr.next; // Restore original list's next pointer
-            
-            // Set the next pointer for the copied node, handle the end of the list
+            curr.next = newCurr.next; 
             if (newCurr.next != null) { 
                 newCurr.next = newCurr.next.next;
             } else {
-                newCurr.next = null; // Set the last copied node's next to null
+                newCurr.next = null;
             }
-            
-            curr = curr.next; // Move to the next original node
-            newCurr = newCurr.next; // Move to the next copied node
+            curr = curr.next;
+            newCurr = newCurr.next;
         }
         return newHead;
     }
