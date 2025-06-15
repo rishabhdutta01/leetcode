@@ -17,22 +17,20 @@ class Solution {
     int sum=0;
     public int sumNumbers(TreeNode root) {
         StringBuilder sb = new StringBuilder();
-        dfs(root, sb);
+        dfs(root, 0);
         return sum;
     }
 
-    void dfs(TreeNode curr, StringBuilder sb){
+    void dfs(TreeNode curr, int num){
         if(curr == null) return;
         if(curr.left == null && curr.right == null){
-            sb.append(curr.val);
-            sum += Integer.parseInt(sb.toString());
-            sb.deleteCharAt(sb.length()-1);
+            sum += num*10 + curr.val;
             return;
         }
-        sb.append(curr.val);
-        dfs(curr.left,sb);
-        dfs(curr.right,sb);
-        sb.deleteCharAt(sb.length()-1);
+        num = num*10 + curr.val;
+        dfs(curr.left,num);
+        dfs(curr.right,num);
+        num = num/10;
         return;
     }
 }
