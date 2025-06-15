@@ -30,7 +30,5 @@ class Solution {
         num = num*10 + curr.val;
         dfs(curr.left,num);
         dfs(curr.right,num);
-        num = num/10;
-        return;
     }
 }
