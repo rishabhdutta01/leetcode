@@ -7,8 +7,11 @@ public class Solution {
             papers[Math.min(n, c)]++;
         // finding the h-index
         int k = n;
-        for (int s = papers[n]; k > s; s += papers[k])
-            k--;
+        int s = papers[n]; // Initialize s
+        while (k > s) {  // Condition
+            k--; // Decrement k
+            s += papers[k]; // Increment s based on papers[k]
+        }
         return k;
     }
 }
