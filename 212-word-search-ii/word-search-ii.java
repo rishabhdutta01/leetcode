@@ -70,6 +70,10 @@ class Solution {
 
             board[i][j] = temp;
         }
+        // Remove leaf nodes
+        if (curr.children.isEmpty()) {
+            curr.children.remove(board[i][j]);
+        }
         return;
     }
 }
