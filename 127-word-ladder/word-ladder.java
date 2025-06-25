@@ -36,21 +36,6 @@ class Solution {
         }
         return 0;
     }
-
-    boolean adjacent(String w1, String w2) {
-        if (w1.length() != w2.length())
-            return false;
-
-        int cnt = 0;
-        for (int i = 0; i < w1.length(); i++) {
-            if (w1.charAt(i) != w2.charAt(i)) {
-                cnt++;
-                if (cnt == 2)
-                    return false;
-            }
-        }
-        return cnt == 1;
-    }
 }
 // class Solution {
 //     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
