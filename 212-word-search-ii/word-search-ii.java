@@ -68,12 +68,7 @@ class Solution {
                     go(curr.children.get(board[r][c]), r, c);
                 }
             }
-
             board[i][j] = temp;
-        }
-        // Remove leaf nodes
-        if (curr.children.isEmpty()) {
-            curr.children.remove(board[i][j]);
         }
         return;
     }
