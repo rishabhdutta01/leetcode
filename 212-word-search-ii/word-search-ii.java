@@ -49,6 +49,7 @@ class Solution {
     void go(Node curr, int i, int j) {
         if (curr.word != null) {
             res.add(curr.word);
+            curr.word = null;
         }
 
         int[][] moves = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
