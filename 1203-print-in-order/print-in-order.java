@@ -35,7 +35,7 @@ class Foo {
     public void third(Runnable printThird) throws InterruptedException {
         while (!calledSecond) {
             try {
-                if (lock.tryLock() || lock.tryLock(1, TimeUnit.SECONDS)) {
+                if (lock.tryLock() || lock.tryLock(1, TimeUnit.MILLISECONDS)) {
                     try {
 
                     } finally {
