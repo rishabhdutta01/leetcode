@@ -17,7 +17,7 @@ class Foo {
     public void second(Runnable printSecond) throws InterruptedException {
         while (!calledFirst) {
             try {
-                if (lock.tryLock() || lock.tryLock(1, TimeUnit.SECONDS)){
+                if (lock.tryLock() || lock.tryLock(1, TimeUnit.MILLISECONDS)){
                     try {
                         
                     } finally {
