@@ -26,7 +26,8 @@ class Solution {
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                     List<String> urls = htmlParser.getUrls(url);
                     for (String newUrl : urls) {
-                        if (isSameHostname(newUrl, hostname) && visited.add(newUrl)) {
+                        if (isSameHostname(newUrl, hostname) && !visited.contains(newUrl)) {
+                            visited.add(newUrl);
                             queue.offer(newUrl);
                         }
                     }
