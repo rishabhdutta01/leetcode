@@ -6,35 +6,49 @@
  * }
  */
 class Solution {
+    
     public List<String> crawl(String startUrl, HtmlParser htmlParser) {
         String hostname = getHostname(startUrl);
-        
         Set<String> visited = ConcurrentHashMap.newKeySet();
+        Queue<String> queue = new ConcurrentLinkedQueue<>();
+        
+        queue.offer(startUrl);
         visited.add(startUrl);
         
-        return crawl(startUrl, htmlParser, hostname, visited)
-            .collect(Collectors.toList());
-    }
-    
-    private Stream<String> crawl(String startUrl, HtmlParser htmlParser, String hostname, Set<String> visited) {
-        Stream<String> stream = htmlParser.getUrls(startUrl)
-            .parallelStream()
-            .filter(url -> isSameHostname(url, hostname))
-            .filter(url -> visited.add(url))
-            .flatMap(url -> crawl(url, htmlParser, hostname, visited));
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
         
-        return Stream.concat(Stream.of(startUrl), stream);
+        // Process URLs until queue is empty
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            
+            for(int i=0;i<size;i++){
+                String url = queue.poll();
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                    List<String> urls = htmlParser.getUrls(url);
+                    for (String newUrl : urls) {
+                        if (isSameHostname(newUrl, hostname) && visited.add(newUrl)) {
+                            queue.offer(newUrl);
+                        }
+                    }
+                });
+                futures.add(future);
+            }
+            
+            // Wait for current batch to complete before processing next batch
+            CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+            futures.clear();
+        }
+        
+        return new ArrayList<>(visited);
     }
     
     private String getHostname(String url) {
-        int idx = url.indexOf('/', 7);
-        return (idx != -1) ? url.substring(0, idx) : url;
+        String withoutProtocol = url.substring(7);
+        int slashIndex = withoutProtocol.indexOf('/');
+        return slashIndex == -1 ? withoutProtocol : withoutProtocol.substring(0, slashIndex);
     }
     
-    private boolean isSameHostname(String url, String hostname) {
-        if (!url.startsWith(hostname)) {
-            return false;
-        }
-        return url.length() == hostname.length() || url.charAt(hostname.length()) == '/';
+    private boolean isSameHostname(String url, String targetHostname) {
+        return getHostname(url).equals(targetHostname);
     }
 }
