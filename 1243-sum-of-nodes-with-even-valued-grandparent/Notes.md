@@ -1,0 +1,1 @@
+<h2>sum-of-nodes-with-even-valued-grandparent Notes</h2><hr>[ Time taken: 11 m 17 s ]
