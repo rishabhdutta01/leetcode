@@ -28,11 +28,11 @@ class Solution {
         }
         
         if(curr.val % 2 == 0){
-            dfs(curr.left, p + 1, 1);
-            dfs(curr.right, p + 1, 1);
+            dfs(curr.left, p == 1 ? p + 1 : 0, 1);
+            dfs(curr.right, p == 1 ? p + 1 : 0, 1);
         } else{
-            dfs(curr.left, p + 1, 0);
-            dfs(curr.right, p + 1, 0);
+            dfs(curr.left, p == 1 ? p + 1 : 0, 0);
+            dfs(curr.right, p == 1 ? p + 1 : 0, 0);
         }
     }
 }
