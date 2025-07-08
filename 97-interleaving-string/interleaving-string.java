@@ -6,32 +6,25 @@ class Solution {
 
         if(l != m + n) return false;
 
-        Map<String, Boolean> map = new HashMap<>();
-        return interleaved(s1,s2,s3,0,0,0, map);
+        Boolean[][] map = new Boolean[n+1][m+1];
+        return interleaved(s1,s2,s3,0,0, map);
     }
 
-    boolean interleaved(String s1, String s2, String s3, int i1, int i2, int i3, Map<String, Boolean> m){
-        if(i3 == s3.length()) return true;
+    boolean interleaved(String s1, String s2, String s3, int i, int j, Boolean[][] map){
+        if(i+j == s3.length()) return true;
+        if(map[i][j]!=null) return map[i][j];
+
         boolean res = false;
-        if(i1!=s1.length() && i2!=s2.length() && s1.charAt(i1) == s3.charAt(i3) && s2.charAt(i2) == s3.charAt(i3)){
-            String k1 = (i1+1) + "s1+" + (i3+1) + "s3";
-            String k2 = (i2+1) + "s2+" + (i3+1) + "s3";
-            boolean v1 = m.containsKey(k1) ? m.get(k1) : interleaved(s1,s2,s3,i1+1,i2,i3+1,m);
-            boolean v2 = m.containsKey(k2) ? m.get(k2) : interleaved(s1,s2,s3,i1,i2+1,i3+1,m);
-            res = v1 || v2;
-        } else if(i1!=s1.length() && s1.charAt(i1) == s3.charAt(i3)){
-            String k1 = (i1+1) + "s1+" + (i3+1) + "s3";
-            res = m.containsKey(k1) ? m.get(k1) : interleaved(s1,s2,s3,i1+1,i2,i3+1,m);
-        } else if(i2!=s2.length() && s2.charAt(i2) == s3.charAt(i3)){
-            String k2 = (i2+1) + "s2+" + (i3+1) + "s3";
-            res = m.containsKey(k2) ? m.get(k2) : interleaved(s1,s2,s3,i1,i2+1,i3+1,m);
+        if(i!=s1.length() && j!=s2.length() && s1.charAt(i) == s3.charAt(i+j) && s2.charAt(j) == s3.charAt(i+j)){
+            res = interleaved(s1,s2,s3,i+1,j,map) || interleaved(s1,s2,s3,i,j+1,map);
+        } else if(i!=s1.length() && s1.charAt(i) == s3.charAt(i+j)){
+            res = interleaved(s1,s2,s3,i+1,j,map);
+        } else if(j!=s2.length() && s2.charAt(j) == s3.charAt(i+j)){
+            res = interleaved(s1,s2,s3,i,j+1,map);
         } else{
             res = false;
         }
-        String k1 = (i1) + "s1+" + (i3) + "s3";
-        String k2 = (i2) + "s2+" + (i3) + "s3";
-        m.put(k1, res);
-        m.put(k2, res);
+        map[i][j] = res;
         return res;
     }
 }
