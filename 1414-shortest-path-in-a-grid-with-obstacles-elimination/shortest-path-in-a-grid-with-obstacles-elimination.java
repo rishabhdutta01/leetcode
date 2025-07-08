@@ -5,6 +5,12 @@ class Solution {
         int m = grid.length;
         int n = grid[0].length;
         int[][] dirs = {{0,-1},{0,1},{1,0},{-1,0}};
+
+        // if we have sufficient quotas to eliminate the obstacles in the worst case,
+        // then the shortest distance is the Manhattan distance.
+        if (k >= m + n - 2) {
+            return m + n - 2;
+        }
         
         // 3D visited array: [row][col][eliminations_left]
         boolean[][][] visited = new boolean[m][n][k+1];
