@@ -1,7 +1,6 @@
 class ZeroEvenOdd {
     private int n;
     AtomicInteger x;
-    volatile boolean calledZero = false;
 
     Semaphore zero;
     Semaphore odd;
