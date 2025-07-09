@@ -39,7 +39,7 @@ class BoundedBlockingQueue {
         return e;
     }
     
-    public synchronized int size() {
+    public int size() {
         // return curr.get();
         return curr;
     }
