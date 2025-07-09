@@ -1,6 +1,6 @@
 class FizzBuzz {
     private int n;
-    private volatile int current = 1;
+    private int current = 1;
     private final Object lock = new Object();
     
     public FizzBuzz(int n) {
