@@ -1,6 +1,6 @@
 class TrafficLight {
     private final Object lock = new Object();
-    private volatile boolean road1Green = true; // Road A starts green
+    private boolean road1Green = true; // Road A starts green
     
     public void carArrived(
             int carId,
