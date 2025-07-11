@@ -1,10 +1,9 @@
 class Solution {
     public int longestStrChain(String[] words) {
         Map<String, Integer> chains = new HashMap<>();  // Stores the max chain length for each word
-        String[] sortedWords = Arrays.copyOf(words, words.length);
-        Arrays.sort(sortedWords, (a, b) -> a.length() - b.length());  // Sort words by length
+        Arrays.sort(words, (a, b) -> a.length() - b.length());  // Sort words by length
 
-        for (String word : sortedWords) {
+        for (String word : words) {
             chains.put(word, 1);  // Initialize the chain length for the current word
             if(word.length() == 1){
                 continue;
