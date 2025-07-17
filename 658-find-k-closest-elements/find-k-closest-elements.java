@@ -8,26 +8,38 @@ class Solution {
             return res;
         }
 
-        PriorityQueue<Pair<Integer, Integer>> q = new PriorityQueue<>((a,b) -> b.getValue() - a.getValue());
-        for(int val: arr){
-            if(k>0) {
-                q.offer(new Pair<>(val, Math.abs(val - x)));
-                k--;
-            }
-            else{
-                if(q.peek().getValue() > Math.abs(val - x)){
-                    q.poll();
-                    q.offer(new Pair<>(val, Math.abs(val - x)));
-                }
+        int n = arr.length;
+        int l = 0;
+        int r = n-1;
+        int ptr = -1;
+        while(l<=r){
+            int mid = l + (r-l)/2;
+            if(arr[mid] <= x) {
+                l = mid+1;
+                ptr = mid;
+            } else{
+                r = mid-1;
             }
         }
 
-        List<Integer> res = new ArrayList<>();
-        while(!q.isEmpty()){
-            res.add(q.poll().getKey());
+        if(ptr == -1) ptr=0;
+
+        l = ptr;
+        r = ptr + 1;
+
+        while(r-l-1 < k){
+            if(l < 0) r++;
+            else if(r >= n) l--;
+            else{
+                if(Math.abs(arr[l] - x) <= Math.abs(arr[r] - x)) l--;
+                else r++;
+            }
         }
-        
-        Collections.sort(res);
+
+        List<Integer> res =  new ArrayList<>();
+        for(int i=l+1;i<r;i++){
+            res.add(arr[i]);
+        }
         return res;
     }
 }
