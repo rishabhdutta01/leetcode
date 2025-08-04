@@ -9,6 +9,7 @@ class Solution {
     void fnc(int[] candidates, int idx, int k, List<Integer> l, List<List<Integer>> res){
         if(k == 0){
             res.add(new ArrayList<>(l));
+            return;
         }
         if(k<0){
             return;
