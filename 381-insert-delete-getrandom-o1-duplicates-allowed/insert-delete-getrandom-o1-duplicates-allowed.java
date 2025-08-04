@@ -1,40 +1,59 @@
 class RandomizedCollection {
-    Map<Integer, Set<Integer>> map;
+    HashMap<Integer, Set<Integer>> map;
     List<Integer> list;
-    Random r;
+    Random random;
 
     public RandomizedCollection() {
         map = new HashMap<>();
         list = new ArrayList<>();
-        r = new Random();
+        random = new Random();
     }
-    
+
     public boolean insert(int val) {
-        if(!map.containsKey(val)){
-            map.put(val, new LinkedHashSet<>());
+        boolean notPresent = !map.containsKey(val) || map.get(val).isEmpty();
+
+        if (!map.containsKey(val)) {
+            map.put(val, new HashSet<>());
         }
 
         map.get(val).add(list.size());
         list.add(val);
-        return map.get(val).size() == 1;
+
+        return notPresent;
     }
-    
+
     public boolean remove(int val) {
-        if(!map.containsKey(val) || map.get(val).size() == 0) return false;
+        if (!map.containsKey(val) || map.get(val).isEmpty()) {
+            return false;
+        }
 
-        int currIdx = map.get(val).iterator().next();
-        map.get(val).remove(currIdx);
+        Set<Integer> indices = map.get(val);
+        int indexToRemove = indices.iterator().next();
+        indices.remove(indexToRemove);
 
-        int lastVal = list.getLast();
-        list.set(currIdx, lastVal);
-        map.get(lastVal).add(currIdx);
-        map.get(lastVal).remove(list.size()-1);
-        list.removeLast();
+        if (indices.isEmpty()) {
+            map.remove(val);
+        }
+
+        int lastIndex = list.size() - 1;
+        int lastVal = list.get(lastIndex);
+
+        // Swap the element to be removed with the last one
+        list.set(indexToRemove, lastVal);
+        if (map.containsKey(lastVal)) {
+            map.get(lastVal).remove(lastIndex);
+            map.get(lastVal).add(indexToRemove);
+        }
+
+        // Remove the last element
+        list.remove(lastIndex);
+
         return true;
     }
-    
+
     public int getRandom() {
-        return list.get(r.nextInt(list.size()));
+        int index = random.nextInt(list.size());
+        return list.get(index);
     }
 }
 
