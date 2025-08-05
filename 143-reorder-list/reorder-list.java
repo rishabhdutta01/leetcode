@@ -10,24 +10,31 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        Deque<ListNode> deq = new LinkedList<ListNode>();
-        ListNode curr= head;
-        while(curr!=null){
-            deq.offerLast(curr);
+        if(head == null || head.next == null) return;
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        Stack<ListNode> s = new Stack<>();
+        while(slow!=null){
+            s.push(slow);
+            slow = slow.next;
+        }
+
+        ListNode curr = head;
+        ListNode prev = curr;
+        while(s.size()!=1){
             curr = curr.next;
+            prev.next = s.pop();
+            prev.next.next = curr;
+            prev = curr;
         }
-
-        head = deq.pollFirst();
-        curr=head;
-
-        while(!deq.isEmpty()) {
-            curr.next = deq.pollLast();
-            curr=curr.next;
-            if(deq.isEmpty())
-                break;
-            curr.next = deq.pollFirst();
-            curr=curr.next;
-        }
-        curr.next = null;
+        curr.next = s.pop();
+        curr.next.next = null;
     }
 }
