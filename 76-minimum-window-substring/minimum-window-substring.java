@@ -1,52 +1,52 @@
 //2ms
 
-class Solution {
-    public String minWindow(String s, String t) {
-        Map<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < t.length(); i++) {
-            map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
-        }
+// class Solution {
+//     public String minWindow(String s, String t) {
+//         Map<Character, Integer> map = new HashMap<>();
+//         for (int i = 0; i < t.length(); i++) {
+//             map.put(t.charAt(i), map.getOrDefault(t.charAt(i), 0) + 1);
+//         }
 
-        int l = 0;
-        int r = 0;
-        int res = Integer.MAX_VALUE;
-        int ansl = 0;
-        int ansr = 0;
-        int rem = map.size();
+//         int l = 0;
+//         int r = 0;
+//         int res = Integer.MAX_VALUE;
+//         int ansl = 0;
+//         int ansr = 0;
+//         int rem = map.size();
 
-        while (r < s.length()) {
-            if (map.containsKey(s.charAt(r))) {
-                map.put(s.charAt(r), map.get(s.charAt(r)) - 1);
-                if (map.get(s.charAt(r)) == 0) {
-                    rem--;
-                }
-            }
+//         while (r < s.length()) {
+//             if (map.containsKey(s.charAt(r))) {
+//                 map.put(s.charAt(r), map.get(s.charAt(r)) - 1);
+//                 if (map.get(s.charAt(r)) == 0) {
+//                     rem--;
+//                 }
+//             }
 
-            while (rem == 0) {
-                if (res > r - l + 1) {
-                    res = r - l + 1;
-                    ansl = l;
-                    ansr = r;
-                }
+//             while (rem == 0) {
+//                 if (res > r - l + 1) {
+//                     res = r - l + 1;
+//                     ansl = l;
+//                     ansr = r;
+//                 }
 
-                if (map.containsKey(s.charAt(l))) {
-                    map.put(s.charAt(l), map.get(s.charAt(l)) + 1);
+//                 if (map.containsKey(s.charAt(l))) {
+//                     map.put(s.charAt(l), map.get(s.charAt(l)) + 1);
 
-                    if (map.get(s.charAt(l)) > 0) {
-                        rem++;
-                    }
-                }
-                l++;
-            }
+//                     if (map.get(s.charAt(l)) > 0) {
+//                         rem++;
+//                     }
+//                 }
+//                 l++;
+//             }
 
-            r++;
+//             r++;
 
-        }
-        return res == Integer.MAX_VALUE ? "" : s.substring(ansl, ansr+1);
-    }
-}
+//         }
+//         return res == Integer.MAX_VALUE ? "" : s.substring(ansl, ansr+1);
+//     }
+// }
 
-/*
+
 class Solution {
     public String minWindow(String s, String t) {
         int [] map = new int[128];
@@ -74,4 +74,3 @@ class Solution {
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
     }
 }
-*/
