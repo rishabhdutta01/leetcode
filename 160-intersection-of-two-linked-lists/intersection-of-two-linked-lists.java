@@ -15,13 +15,8 @@ public class Solution {
         ListNode currB = headB;
 
         while(currA != currB){
-            if(currA == null) currA = headB;        
-            if(currB == null) currB = headA;
-
-            if(currA == currB) break;
-            
-            currA = currA.next;
-            currB = currB.next;          
+            currA = currA == null ? headB : currA.next;
+            currB = currB == null ? headA : currB.next;       
         }
 
         if(currA == null) return null;
