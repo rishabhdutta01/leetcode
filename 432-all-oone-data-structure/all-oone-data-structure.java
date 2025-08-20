@@ -33,11 +33,12 @@ class AllOne {
             if (nextNode == tail || nextNode.freq != freq + 1) {
                 Node newNode = new Node(freq + 1);
                 newNode.keys.add(key);
+                map.put(key, newNode);
+
                 newNode.prev = node;
                 newNode.next = nextNode;
                 node.next = newNode;
-                nextNode.prev = newNode;
-                map.put(key, newNode);
+                nextNode.prev = newNode;             
             } else {
                 nextNode.keys.add(key);
                 map.put(key, nextNode);
@@ -51,11 +52,12 @@ class AllOne {
             if (firstNode == tail || firstNode.freq > 1) {
                 Node newNode = new Node(1);
                 newNode.keys.add(key);
+                map.put(key, newNode);
+
                 newNode.prev = head;
                 newNode.next = firstNode;
                 head.next = newNode;
-                firstNode.prev = newNode;
-                map.put(key, newNode);
+                firstNode.prev = newNode;   
             } else {
                 firstNode.keys.add(key);
                 map.put(key, firstNode);
@@ -79,11 +81,12 @@ class AllOne {
             if (prevNode == head || prevNode.freq != freq - 1) {
                 Node newNode = new Node(freq - 1);
                 newNode.keys.add(key);
+                map.put(key, newNode);
+
                 newNode.prev = prevNode;
                 newNode.next = node;
                 prevNode.next = newNode;
-                node.prev = newNode;
-                map.put(key, newNode);
+                node.prev = newNode;                
             } else {
                 prevNode.keys.add(key);
                 map.put(key, prevNode);
