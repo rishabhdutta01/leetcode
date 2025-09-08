@@ -43,12 +43,12 @@ class Solution {
         if(!word.contains(endWord)) return 0;
         begin.add(beginWord);
         end.add(endWord);
-        return dfs(begin, end, word, 1);
+        return bfs(begin, end, word, 1);
     }
 
-    public int dfs(Set<String> begin, Set<String> end, Set<String> word, int res){
+    public int bfs(Set<String> begin, Set<String> end, Set<String> word, int res){
         if(begin.size() == 0) return 0;
-        if(begin.size() > end.size()) return dfs(end, begin, word, res);
+        if(begin.size() > end.size()) return bfs(end, begin, word, res);
 
         for(String w : begin) word.remove(w);
 
@@ -69,6 +69,6 @@ class Solution {
                 }
             }
         }
-        return dfs(next, end, word, res + 1);
+        return bfs(next, end, word, res + 1);
     }
 }
